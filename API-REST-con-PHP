@@ -4,3 +4,81 @@ Curso de API REST con PHP
 -----------------------------------
 -----------------------------------
 
+Aprende desde configurar tus entornos de desarrollo hasta lograr implementar los servicios REST, como GET, POST, DELETE y PUT, incluyendo autenticación y manejo de errores. Las cuales lo podrás integrar con cualquier framework del lado Frontend.
+
+    Entender los conceptos principales de REST
+    Aprender a consumir servicios REST
+    Producir servicios REST
+    Restringir el acceso a las API Rest
+    
+ 
+ 
+1. Que es una API y para que sirve
+------------------------------------
+
+Interfaz de programacion de aplicaciones
+  un conjunto de reglas en como dos aplicaciones se comunican entre si
+  --> quien inicia la comunicacion
+  --> que tipos de mensajes se envian
+  --> cuales son las respuestas que se deben de esperar
+
+Herramientas
+  --> php
+  --> interpreteQué es y cómo funciona el protocolo HTTP
+  --> nau.sh
+  --> cURL
+  --> JQ
+  --> navegador
+  
+ 
+ 2. Qué es y cómo funciona el protocolo HTTP
+ --------------------------------------------
+ 
+HTTP (Hypertext Transfer Protocol), en español: Protocolo de Transferencia de Hipertexto, es un protocolo estándar que gestiona la conexión de 
+los servidores web con los navegadores.
+
+Qué es HTTP
+
+Es un protocolo de comunicación entre aplicaciones basado en el intercambio de texto. El protocolo HTTP es el que impulsa todo internet. 
+Los navegadores web utilizan este protocolo para solicitar páginas web a los servidores. El servidor devuelve todos los datos necesarios en 
+código HTML para que puedan mostrarse en el navegador.
+
+Qué es un protocolo
+
+Es conjunto de reglas en las que se van a comunicar dos entidades, en este caso dos computadoras. El modelo TCP/IP nos permite esta comunicación 
+entre computadoras.
+
+Como funciona el protocolo HTTP
+
+    El cliente envía una petición, se transmite por internet.
+    El servidor recibe la petición y genera una respuesta, la envía.
+    El cliente recibe la respuesta (y si estamos en el navegador, interpreta lo recibido).
+
+Ejemplo de protocolo HTTP
+
+Para este ejemplo, vamos a usar la terminal de comandos de tu computador. Si tienes Windows, puedes encontrarla simplemente buscando “CMD” 
+en la barra de búsqueda de Windows.
+
+Ya dentro de la terminal, vamos a usar el comando curl:
+  --> curl  https://platzi.com
+
+Al ejecutar el comando, estamos enviando una solicitud HTTP al servidor, que nos enviará todo el código HTML del sitio web. Si queremos ver 
+solamente los encabezados, usamos el modificador -v
+  --> curl https://platzi.com -v 
+
+Utilizamos redireccion (>) para no observar todo el html. Acá tenemos una redirección de salida
+  -->curl https://platzi.com -v > /dev/null
+
+
+--------------------------
+Lecturas recomendadas
+--------------------------
+https://www.ibm.com/support/knowledgecenter/es/ssw_aix_72/com.ibm.aix.networkcomm/tcpip_protocols.htm
+https://www.digival.es/blog/que-son-las-dns-y-para-que-sirven/
+https://neo.lcc.uma.es/evirtual/cdd/tutorial/aplicacion/http.html
+ 
+ 
+ 
+ 
+  
+ 
