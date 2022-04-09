@@ -79,6 +79,103 @@ https://neo.lcc.uma.es/evirtual/cdd/tutorial/aplicacion/http.html
  
  
  
+ 3. ¿Qué significa REST? y ¿qué es una API RESTful?
+ ---------------------------------------------------
  
-  
+REST es un acrónimo que significa Representational State Transfer o transferencia de estado representacional en español. 
+Le agrega una capa muy delgada de complejidad y abstracción a HTTP. Mientras que HTTP es transferencia de archivos, REST se basa en la 
+transferencia de recursos.
+
+Cómo funciona REST
+
+REST es un conjunto de principios que definen la forma en que se deben crear, leer, actualizar y eliminar los datos. Es una arquitectura 
+conocida como cliente-servidor, en la que el servidor y el cliente actúan de forma independiente, siempre y cuando la interfaz sea la misma 
+al procesar una solicitud y una respuesta, que son los elementos esenciales. El servidor expone la API REST y el cliente hace uso de ella. 
+
+El servidor almacena la información y la pone a disposición del usuario, mientras que el cliente toma la información y la muestra al usuario o 
+la utiliza para realizar posteriores peticiones de más información.
+
+REST es muy útil cuando:
+
+    Las interacciones son simples.
+    Los recursos de tu hardware son limitados.
+
+
+Qué es una API RESTful
+
+Una API RESTful es una interfaz que utiliza estos principios para comunicarse hacia y desde un servidor. Está diseñada con los conceptos de REST. 
+El principio más importante en las APIs RESTful es el uso de los métodos HTTP:
+    GET
+    POST
+    PUT
+    DELETE
+
+Estos métodos son empleados por los clientes para crear, manipular y eliminar datos en los servidores, respectivamente.
+
+Elementos de una API RESTful
+
+    Recurso: todo dentro de una API RESTful debe ser un recurso.
+    URI: los recursos en REST siempre se manipulan a partir de la URI, identificadores universales de recursos.
+    Acción: todas las peticiones a tu API RESTful deben estar asociadas a uno de los verbos de HTTP: GET para obtener un recurso, POST 
+    para escribir un recurso, PUT para modificar un recurso y DELETE para borrarlo.
+
+Qué es una API
+
+La palabra API es un acrónimo que significa Interfaz de Programación de Aplicaciones (Application Programming Interface). 
+Es un sistema que funciona como intermediario entre diferentes aplicaciones de software y su función es permitir que estas aplicaciones 
+puedan comunicarse entre sí. Cada vez que usas una app como WhatsApp, Instagram o Facebook, estás usando una API sin saberlo.
+
+
+Observaciones
+
+Algunas Siglas vistas hasta ahora en el curso:
+    --> REST ( Representational State Transfer)
+    --> HTTP: HyperText Transfer Protocol
+    --> URI: Uniform Resource Identifier
+    --> URL: Uniform Resource Locator
+
+Diferencias entre REST y RESTful
+    --> REST es una arquitectura para aplicaciones en redes (REpresentational State Transfer). 
+    --> RESTful por otro lado, son programas (a modo de web service o API), basados en REST. 
+        Muchas veces se usan ambos terminos como sinonimos.
+
+Una petición REST completa se basa en:
+    --> URL(Dominio, protocolo)
+    --> verbo HTTP (GET, PUT, POST, DELETE)
+
+¿Cuándo conviene usar REST?
+    --> Interacciones simples (agregar recursos, quitarlos, modificarlos)
+    --> Recursos limitados
+
+¿Cuándo NO conviene usar REST?
+    --> cuando las interacciones son más complejas, ejemplo cuándo necesitamos que el servidor aporte más lógica.
+
+En que casos SI conviene usar REST:
+    --> conviene usarlo cuando las interacciones son simples
+    --> donde lo que queremos hacer son las operaciones básicas de crear un recurso, quitar recursos, modificarlos y también cuando 
+        los recursos de hardware son limitados, por que como es muy cercano al http no hay más que necesitemos instalar.
+
+cuando NO conviene usar REST:
+es cuando las interacciones son un poco más complejas, es decir necesitamos que el servidor aporte más lógica, ejemplo: la validación de algún documento.
+ 
+--> REST permite mandar json, xml, binarios (imágenes, documentos), text, etc. en cambio con SOAP que solo permite la transmisión de datos 
+    en formato XML, json es mucho mas liviano y rapido en su procesamiento dado que es interpretado de forma natural por javascript.
+    
+--> REST como SOAP son bastante capaces de atender grandes volúmenes de información, yo creo hay que analizar que es más conveniente para uno, 
+    tanto en tiempo de desarrollo, tecnologías y sobre que dispositivos o tipos de APP se van a consumir, SOAP se utiliza mas en aplicaciones 
+    
+--------------------------
+Lecturas recomendadas
+--------------------------
+https://es.wikipedia.org/wiki/Simple_Object_Access_Protocol
+
+
+
+
+4. Cómo realizar una petición REST e interpretar sus resultados
+------------------------------------------------------------------
+
+
+
+
  
