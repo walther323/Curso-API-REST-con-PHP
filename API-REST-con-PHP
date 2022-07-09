@@ -175,6 +175,37 @@ https://es.wikipedia.org/wiki/Simple_Object_Access_Protocol
 4. Cómo realizar una petición REST e interpretar sus resultados
 ------------------------------------------------------------------
 
+Utilizando el comando ‘curl’ dentro de nuestra terminal podemos realizar peticiones a cualquier sitio web, por ejemplo una API como la de xkcd.
+    --> curl https://xkcd.com/info.0.json
+
+El anterior comando nos regresa información del API, pero de manera poco legible. para poder verlo de manera más ordenada podemos usar el siguiente comando:
+    --> curl https://xkcd.com/info.0.json | jq
+    
+--> se crea un archivo con extension .php, el nombre del archivo xhcd.php
+
+<?php
+    $json = file_get_contents('https://xkcd.com/info.0.json').PHP_EOL;
+    $data = json_decode($json,true);
+    echo $data['img'].PHP_EOL;
+?>
+
+para ejecutarlo escribimos el comando por consola --> php xhcd.php
+
+
+VERBOS HTTP
+    --> GET     (realizar consultas)
+                    toda la informacion viaja a travez de la url
+    --> POST    (realizar registros)
+                    viaja un poco mas oculta, un poco mas segura
+    --> PUT     (realizar actualizacion)
+    --> DELETE  (realizar eliminacion)
+    
+    
+
+
+
+
+
 
 
 
