@@ -278,6 +278,13 @@ switch( strtoupper($_SERVER['REQUEST_METHOD'])) {
 
 
 
+6. Exponer un recurso en particular a través de HTTP GET
+------------------------------------------
+
+
+
+
+
 
 
 
