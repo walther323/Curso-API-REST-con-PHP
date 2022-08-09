@@ -492,11 +492,30 @@ now.json
 7. Incorporar datos a través de HTTP POST
 ---------------------------------------------
 
+tomando como referencia el archivo previo creado en la seccion de swith: POST en el php, en la consola hacemos la siguiente peticion
+
+A diferencia cuando usamos las peticiones GET solo levantando el servidor -S debemos de enviar el parametro -X y en comillas simples "POST"
+
+--> Podemos usar el caracter de escape backslash ( \ ) antes de cada comilla dentro de los datos JSON:
+    --> curl -X "POST" http://localhost:8000/books -d "{ \"titulo\":\"Nuevo Libro\",\"id_autor\": 1,\"id_genero\": 2}"
+
+--> También podemos mover los datos json a un archivo de tipo .txt y cambiar el cURL para que importe los datos JSON a través de la sintaxis @filename:
+    {
+        "Titulo": "Libro Nuevo",
+        "id_autor": 1,
+        "id_genero": 2
+    }
+    --> curl -X "POST" http://localhost:8000/books -d @json.txt
+        Recuerda cambiar tu directorio a donde esta contenido el archivo json.txt (con el comando cd ) antes de realizar esta acción.
 
 
 
 
+8. Modificar datos a través de HTTP PUT
+---------------------------------------------
 
+Es importante recordar que el método PUT hace un reemplazo, no modificaciones puntuales. 
+Por ello la información que enviemos a través de la petición debe ser completa.
 
 
 
