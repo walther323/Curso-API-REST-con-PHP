@@ -517,6 +517,26 @@ A diferencia cuando usamos las peticiones GET solo levantando el servidor -S deb
 Es importante recordar que el método PUT hace un reemplazo, no modificaciones puntuales. 
 Por ello la información que enviemos a través de la petición debe ser completa.
 
+case 'PUT':
+    if ( !empty($resourceId) && array_key_exists( $resourceId, $books ) ) {
+        $json = file_get_contents( 'php://input' );
+
+        $books[ $resourceId ] = json_decode( $json, true );
+
+        echo $resourceId;
+    }
+    break;
+    
+    --> Podemos usar el caracter de escape backslash ( \ ) antes de cada comilla dentro de los datos JSON:
+    --> curl -X "PUT" http://localhost:8000/books -d "{ \"titulo\":\"Nuevo Libro\",\"id_autor\": 1,\"id_genero\": 2}"
+    
+    
+    --> curl -X "PUT" http://localhost:8000/books/1 -d @json.txt
+        Recuerda cambiar tu directorio a donde esta contenido el archivo json.txt (con el comando cd ) antes de realizar esta acción.
+
+Observacion: no se pueden actualizar datos puntuales, los datos a actualiar deben ser completas
+
+
 
 
 
