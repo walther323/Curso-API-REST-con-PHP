@@ -528,17 +528,135 @@ case 'PUT':
     break;
     
     --> Podemos usar el caracter de escape backslash ( \ ) antes de cada comilla dentro de los datos JSON:
-    --> curl -X "PUT" http://localhost:8000/books -d "{ \"titulo\":\"Nuevo Libro\",\"id_autor\": 1,\"id_genero\": 2}"
-    
-    
-    --> curl -X "PUT" http://localhost:8000/books/1 -d @json.txt
-        Recuerda cambiar tu directorio a donde esta contenido el archivo json.txt (con el comando cd ) antes de realizar esta acción.
+    --> curl -X "PUT" http://localhost:8000/books/1 -d "{ \"titulo\":\"Nuevo Libro\",\"id_autor\": 1,\"id_genero\": 2}"
 
 Observacion: no se pueden actualizar datos puntuales, los datos a actualiar deben ser completas
 
 
 
 
+9. Eliminar datos a través de HTTP DELETE
+-------------------------------------------------
+
+El proceso de eliminacion de datos a traves de delete es simular al metodo put. El codigo corespondiente es el siguiente:
+
+if ( !empty($resourceId) && array_key_exists( $resourceId, $books ) ) {
+    unset( $books[ $resourceId ] );
+}
+break;
+
+Observacion: como se estan manejando datos en un arreglo se utilizara el comando UNSET para proceder con la eliminacion
+en esta parte del codigo se puede implementar una sentencia delete para eliminar un registro en la base de datos
+
+-> comando
+    --> curl -X "DELETE" http://localhost:8000/books/1
 
 
+Lecturas recomendadas
+    Meet Google Drive – One place for all your files
+    https://drive.google.com/open?id=1RerWOWXTFI-Zyq6_cf1NsDfvhknN4Md7
+
+    GitHub - mchojrin/platzi-rest-api: Ejemplos del curso de API REST de Platzi
+    https://github.com/mchojrin/platzi-rest-api
+
+    Repositorio de la clase
+    https://github.com/mchojrin/platzi-rest-api
+
+
+
+
+10. Autenticación vía HTTP
+--------------------------------------
+
+La autenticación vía HTTP tiene dos problemas:
+    Es poco segura: las credenciales se envían en cada request anteponiendo el usuario y contraseña en la url, por ejemplo: user:password@platzi.com.
+    Es ineficiente: la autenticación se debe realizar en cada request.
+
+en el archivo server.php adicionamos la siguientes lineas de codigo al inicio del archivo
+
+<?php
+
+$user = array_key_exists('PHP_AUTH_USER', $_SERVER) ? $_SERVER['PHP_AUTH_USER'] : '';
+$pwd = array_key_exists('PHP_AUTH_PW', $_SERVER) ? $_SERVER['PHP_AUTH_PW'] : '';
+
+if ( $user !== 'mauro' || $pwd !== '1234' ) { //--> para temas de ejercicio se estan quemando los datos en la condicion simple, esto no se debe de hacer
+	header('Status-Code: 403');
+	echo json_encode(
+		[ 
+			'error' => "Usuario y/o password incorrectos", 
+		]
+	);
+	die;
+}
+
+a nivel de consola la siguiente peticion se realiza de la siguiente manera:
+--> user:password@URL
+        --> $ curl http://mauro:1234@localhost:8000/books
+        
+
+
+
+11. Autenticación vía HMAC
+---------------------------------------------
+
+Definicion en ingles y español 
+
+--> Hash base autorization code
+--> Codigo de verificacion basado en HASH
+
+ Para esta autenticación necesitamos 3 elementos:
  
+    Función Hash: Difícil de romper, que sea conocida por el cliente y servidor.
+    Clave secreta: Solamente la pueden saber el cliente y el servidor, será utilizada para corroborar el hash.
+    UID: El id del usuario, será utilizado dentro de la función hash junto con la clave secreta y un timestamp.
+
+Es mucho más segura que la autenticación vía HTTP, por ello la información que se envía a través de este método no es muy sensible.
+
+nuevo archivo
+
+--> generate_hash.php
+    <?php
+    $time = time();
+    echo "Time: $time".PHP_EOL."Hash: ".sha1($argv[1].$time.'Sh!! No se lo cuentes a nadie!').PHP_EOL;
+    
+    
+se actualiza el archivo de server.php y se reemplaza la seccion del codigo donde se envia los datos del usuario y contraseña por la url por el nuevo metodo hash
+
+
+if ( 
+	!array_key_exists('HTTP_X_HASH', $_SERVER) || 
+	!array_key_exists('HTTP_X_TIMESTAMP', $_SERVER) || 
+	!array_key_exists('HTTP_X_UID', $_SERVER)  
+	) {
+		header( 'Status-Code: 403' );
+		echo json_encode(
+			[
+				'error' => "No autorizado",
+			]
+		);
+		die;
+	}
+
+list( $hash, $uid, $timestamp ) = [ $_SERVER['HTTP_X_HASH'], $_SERVER['HTTP_X_UID'], $_SERVER['HTTP_X_TIMESTAMP'] ];
+$secret = 'Sh!! No se lo cuentes a nadie!';
+$newHash = sha1($uid.$timestamp.$secret);
+
+if ( $newHash !== $hash ) {
+	header( 'Status-Code: 403' );
+		echo json_encode(
+			[
+				'error' => "No autorizado. Hash esperado: $newHash, hash recibido: $hash",
+			]
+		);		
+		die;
+}
+
+
+
+comando en termila linux
+    --> php generate_hash.php 1
+    
+    --> el siguiente comando es enviar la peticion de la consulta mas el hash
+    
+    ### continuar con el video  
+    
