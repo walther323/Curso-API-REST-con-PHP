@@ -612,6 +612,15 @@ Definicion en ingles y español
 
 Es mucho más segura que la autenticación vía HTTP, por ello la información que se envía a través de este método no es muy sensible.
 
+
+Observaciones:
+
+¿Que es un HASH?
+	Una función criptográfica hash- usualmente conocida como “hash”- es un algoritmo matemático de seguridad que transforma cualquier 
+	bloque arbitrario de datos en una nueva serie de caracteres, con la característica particular de siempre poseer una longitud fija. 
+	Esto quiere decir que, sin importar la longitud de los datos de entrada, la longitud del valor hash de salida siempre es la misma.
+
+
 nuevo archivo
 
 --> generate_hash.php
@@ -656,7 +665,64 @@ if ( $newHash !== $hash ) {
 comando en termila linux
     --> php generate_hash.php 1
     
-    --> el siguiente comando es enviar la peticion de la consulta mas el hash
+    El siguiente comando es enviar la peticion de la consulta mas el hash
     
-    ### continuar con el video  
+    --> php -S localhost:8000 server.php
     
+    --> curl http://localhost:8000/books -H 'X-HASH: <has aqui>' -H 'X-UID: 1' -H 'X-TIMESTAMP: <timestamp aqui>'
+    
+    ejemplo:
+    	--> curl http://localhost:8000/?resource_type=books -H 'X-HASH: 49f826444bdd4b97c882cb1ee6efa87d7ab745f2' -H 'X-UID: 1' -H 'X-TIMESTAMP: 1663291028' |jq
+	resultdo:
+		{
+		  "1": {
+		    "titulo": "Lo que el viento se llevo",
+		    "id_autor": 2,
+		    "id_genero": 2
+		  },
+		  "2": {
+		    "titulo": "La Iliada",
+		    "id_autor": 1,
+		    "id_genero": 1
+		  },
+		  "3": {
+		    "titulo": "La Odisea",
+		    "id_autor": 1,
+		    "id_genero": 1
+		  }
+		}
+
+		
+
+  12 . Autenticación vía Access Tokens
+  ------------------------------------------
+  
+  Está forma es la más compleja de todas, pero también es la forma más segura utilizada para información muy sensible. El servidor al que le van a hacer las consultas se va a partir en dos:
+
+    Uno se va a encargar específicamente de la autenticación.
+    El otro se va a encargar de desplegar los recursos de la API.
+
+El flujo de la petición es la siguiente:
+
+    Nuestro usuario hace una petición al servidor de autenticación para pedir un token.
+    El servidor le devuelve el token.
+    El usuario hace una petición al servidor para pedir recursos de la API.
+    El servidor con los recursos hace una petición al servidor de autenticación para verificar que el token sea válido.
+    Una vez verificado el token, el servidor le devuelve los recursos al cliente.
+
+Lecturas recomendadas
+
+	OAuth 2 Simplified • Aaron Parecki
+	--> https://aaronparecki.com/oauth-2-simplified/
+
+	Curso de Autenticación con OAuth
+	--> https://platzi.com/cursos/autenticacion-oauth/
+	
+Observaciones:
+
+	Los tokens de acceso se utilizan en la autenticación basada en tokens para permitir que una aplicación acceda a una API. 
+	La aplicación recibe un token de acceso después de que un usuario autentica y autoriza el acceso con éxito, 
+	luego pasa el token de acceso como una credencial cuando llama a la API de destino. El token pasado informa a la API que el portador del token 
+	ha sido autorizado para acceder a la API y realizar acciones específicas especificadas por el alcance otorgado durante la autorización.
+
+	--> Fuente: https://auth0.com/docs/tokens/access-tokens
